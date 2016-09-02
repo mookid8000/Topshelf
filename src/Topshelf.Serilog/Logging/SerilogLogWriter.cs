@@ -17,39 +17,31 @@ namespace Topshelf.Logging
     using Serilog;
     using Serilog.Events;
 
+    /// <summary>
+    /// Implementation of <see cref="LogWriter"/> that uses Serilog to write its logs
+    /// </summary>
     public class SerilogLogWriter : LogWriter
     {
         readonly ILogger _logger;
 
+        /// <summary>
+        /// Creates the log writer
+        /// </summary>
         public SerilogLogWriter(ILogger logger)
         {
+            if (logger == null) throw new ArgumentNullException(nameof(logger));
             _logger = logger;
         }
 
-        public bool IsDebugEnabled
-        {
-            get { return _logger.IsEnabled(LogEventLevel.Debug); }
-        }
+        public bool IsDebugEnabled => _logger.IsEnabled(LogEventLevel.Debug);
 
-        public bool IsInfoEnabled
-        {
-            get { return _logger.IsEnabled(LogEventLevel.Information); }
-        }
+        public bool IsInfoEnabled => _logger.IsEnabled(LogEventLevel.Information);
 
-        public bool IsWarnEnabled
-        {
-            get { return _logger.IsEnabled(LogEventLevel.Warning); }
-        }
+        public bool IsWarnEnabled => _logger.IsEnabled(LogEventLevel.Warning);
 
-        public bool IsErrorEnabled
-        {
-            get { return _logger.IsEnabled(LogEventLevel.Error); }
-        }
+        public bool IsErrorEnabled => _logger.IsEnabled(LogEventLevel.Error);
 
-        public bool IsFatalEnabled
-        {
-            get { return _logger.IsEnabled(LogEventLevel.Fatal); }
-        }
+        public bool IsFatalEnabled => _logger.IsEnabled(LogEventLevel.Fatal);
 
         public void Log(LoggingLevel level, object obj)
         {
